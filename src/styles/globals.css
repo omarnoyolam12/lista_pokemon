@@ -1,0 +1,11 @@
+.contenedor{
+    width: 90%;
+    max-width: 1520px;
+    margin: 0 auto;
+}
+
+.space-between{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
