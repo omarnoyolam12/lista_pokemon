@@ -1,11 +1,14 @@
+import { useState, useEffect } from "react";
 import { NextPage, GetStaticProps, GetStaticPaths } from "next";
 import { Grid, Card, Text, Button, Container, Image } from "@nextui-org/react";
+
+import confetti from 'canvas-confetti';
 
 import { Pokemon } from "../../../interfaces";
 import { pokeApi } from "../../../api";
 
 import { Layout } from "@/components/layouts";
-import { wrap } from "module";
+import { toggleFavoritos, existeEnFavoritos } from "@/utils/";
 
 interface Props {
     pokemon: Pokemon
@@ -13,10 +16,34 @@ interface Props {
 
 const PokemonPage: NextPage<Props> = ({pokemon}) => {
 
+    const [esFavorito, setEsFavorito] = useState(
+        existeEnFavoritos(pokemon.id)
+    ); 
 
+
+    // *Guardar en localStorage------------------------------------
+    const tooggleStorage = () => {
+        toggleFavoritos(pokemon.id);
+        setEsFavorito(!esFavorito);
+
+        if(!esFavorito){
+            confetti({
+                zIndex: 999,
+                particleCount: 100,
+                spread: 160,
+                angle: -100,
+                origin: {
+                    x: 1,
+                    y: 0
+                }
+            });
+        }
+    }
 
     return (
-        <Layout>
+        <Layout
+            titulo={pokemon.name}
+        >
             <Grid.Container 
                 css={{
                     marginTop: '5px'
@@ -56,9 +83,12 @@ const PokemonPage: NextPage<Props> = ({pokemon}) => {
 
                             <Button
                                 color={"gradient"}
-                                ghost
+                                ghost={!esFavorito}
+                                onClick={tooggleStorage}
                             >
-                                Guardar en Favoritos
+                                {esFavorito ? 
+                                    'En Favoritos' : 'Guardar en Favoritos'
+                                }
                             </Button>
                         </Card.Header>
 

@@ -1,11 +1,31 @@
-import { Layout } from "@/components/layouts"
+import { useState, useEffect } from "react";
+
+import { Layout } from "@/components/layouts";
+import { NoFavoritos, Favoritos as Favorites } from "@/components/ui";
+
+import { pokemons } from "@/utils";
 
 const Favoritos = () => {
+
+    const [favoritos, setFavoritos] = useState<number[]>([]);
+
+    useEffect(() => {
+        setFavoritos(pokemons());        
+    }, [])
+    
+
     return (
         <Layout
             titulo="Favoritos"
         >
-            <h1>Favoritos</h1>
+            {favoritos.length === 0 ?
+                <NoFavoritos/>
+                :
+                <Favorites
+                    pokemons={favoritos}
+                />
+            }
+            
         </Layout>
     )
 }
