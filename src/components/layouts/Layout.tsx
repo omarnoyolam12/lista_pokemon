@@ -10,7 +10,10 @@ interface Layout  {
     children: ReactNode
 }
 
+const origin = (typeof window === 'undefined') ? '' : window.location.origin;
+
 const Layout: FC<Layout> = ({children, titulo}) => {
+
     return (
         <>
             <Head>
@@ -18,6 +21,10 @@ const Layout: FC<Layout> = ({children, titulo}) => {
                 <meta name="author" content="Omar Alfredo Noyola Monroy" />
                 <meta name="description" content="Información sobre el pokemon" />
                 <meta name="keywords" content="XXXX, pokemon, pokedex" />
+
+                <meta property="og:title" content={`Caracteristicas del pokemon ${titulo}`} />
+                <meta property="og:description" content={`Esta página contiene la infromación de la evolución de ${titulo}`} />
+                <meta property="og:image" content={`${origin}/img/principal.jpg`} />
             </Head>
 
             <NavBar/>

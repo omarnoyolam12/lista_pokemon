@@ -2,7 +2,7 @@ import { FC } from "react";
 import { useRouter } from "next/router";
 import { Grid, Card, Row, Text } from "@nextui-org/react";
 
-import { SmallPokemon } from "../../../interfaces";
+import { SmallPokemon } from "../../interfaces";
 
 interface Tarjeta {
     pokemon: SmallPokemon
@@ -15,7 +15,7 @@ const Tarjeta: FC<Tarjeta> = ({pokemon}) => {
     const router = useRouter();
 
     const handleClick = () => {
-        router.push(`/pokemon/${id}`)
+        router.push(`/nombre/${name}`)
     }
 
     return (
