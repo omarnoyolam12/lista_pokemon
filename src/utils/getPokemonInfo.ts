@@ -3,12 +3,19 @@ import { Pokemon } from "@/interfaces";
 
 const getPokemonInfo = async (pokemon: string) => {
 
-    const {data} = await pokeApi<Pokemon>(`/pokemon/${pokemon}`);
+    try {
+        
+        const {data} = await pokeApi<Pokemon>(`/pokemon/${pokemon}`);
 
-    return {
-        id: data.id,
-        name: data.name,
-        sprites: data.sprites
+        return {
+            id: data.id,
+            name: data.name,
+            sprites: data.sprites
+        }
+
+    } catch (error) {
+        console.log('No existe el pokemon');
+        return null;
     }
 
 }
